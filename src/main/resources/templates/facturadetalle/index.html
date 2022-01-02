@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/fragmentos :: cabecera">
+  
+  
+</head>
+
+<body class="bg-theme bg-theme1">
+ 
+<!-- Start wrapper-->
+ <div id="wrapper">
+ 
+  <!--Inicio de barra lateral-->
+   <div th:replace= "layouts/fragmentos :: menu"></div>
+   <!--final de barra lateral-->
+
+<!--Start topbar header-->
+  <div th:replace="layouts/fragmentos :: barraSuperior"></div>
+
+<!--End topbar header-->
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+	  
+	<!--start overlay-->
+		  <div class="overlay toggle-menu"></div>
+		  <h1>Aqui va el contenido de factura detalle</h1>
+		<!--end overlay-->
+		
+    </div>
+    <!-- End container-fluid-->
+    
+    </div><!--End content-wrapper-->
+   <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+  </div><!--End wrapper-->
+
+  <!-- Bootstrap core JavaScript-->
+  <div th:replace= "layouts/fragmentos :: librerias"></div>
+  	<script th:src="@{/js/simple-datatables.js}"></script>
+	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validacion.js}"></script>
+  
+</body>
+</html>

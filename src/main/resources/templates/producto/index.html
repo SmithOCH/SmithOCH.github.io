@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/fragmentos :: cabecera">
+
+
+</head>
+
+<body class="bg-theme bg-theme1">
+
+	<!-- Start wrapper-->
+	<div id="wrapper">
+
+		<!--Inicio de barra lateral-->
+		<div th:replace="layouts/fragmentos :: menu"></div>
+		<!--final de barra lateral-->
+
+		<!--Start topbar header-->
+		<div th:replace="layouts/fragmentos :: barraSuperior"></div>
+
+		<!--End topbar header-->
+
+		<div class="clearfix"></div>
+
+		<div class="content-wrapper">
+			<div class="container-fluid">
+
+				<!--start overlay-->
+				<div class="overlay toggle-menu"></div>
+				<div class="card">
+					<div class="card-header">Lista de Productos</div>
+					<div class="card-body table-responsive">
+						<table class="table table-bordered table-hover "
+							id="datatablesSimple">
+							<thead class=thead-dark>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Descripción</th>
+									<th>Marca</th>
+									<th>Precio</th>
+									<th>Cantidad</th>
+									<th>Talla</th>
+									<th>Color</th>
+									<th>Categoria</th>
+									<th>Fecha Registro</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item: ${listaProductos}">
+									<td th:text="${item.id}"></td>
+									<td th:text="${item.nombre}"></td>
+									<td th:text="${item.descripcion}"></td>
+									<td th:text="${item.marca}"></td>
+									<td th:text="${item.precio}"></td>
+									<td th:text="${item.cantidad}"></td>
+									<td th:text="${item.talla}"></td>
+									<td th:text="${item.color}"></td>
+									<td th:text="${item.categoria.nombre}"></td>
+									<td th:text="${item.fechreg}"></td>
+
+									<td class="text-center"><a href="#"
+										class="btn btn-warning editarProducto" th:id="${item.id}"
+										th:param1="${item.categoria.id}" th:param2="${item.nombre}"
+										th:param3="${item.descripcion}" th:param4="${item.marca}"
+										th:param5="${item.precio}" th:param6="${item.cantidad}"
+										th:param7="${item.talla}" th:param8="${item.color}" > <i
+											class="fas fa-edit"></i> Editar
+									</a></td>
+									<td class="text-center"><a
+										th:href="@{/producto/eliminar/}+${item.id}"
+										onclick="return confirm('Desea Eliminar?')"
+										class="btn btn-danger"> <i class="fas fa-trash-alt"></i>
+											Eliminar
+									</a></td>
+
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-12">
+
+						<button type="button" class="btn btn-info" id="btnNuevo"
+							data-toggle="modal" data-target="#formularioProducto">
+							<i class="fas fa-plus-square"></i> Nueva producto
+						</button>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- End container-fluid-->
+
+		</div>
+		<!--End content-wrapper-->
+		<!--Start Back To Top Button-->
+		<a href="javaScript:void();" class="back-to-top"><i
+			class="fa fa-angle-double-up"></i> </a>
+		<!--End Back To Top Button-->
+	</div>
+	<!--End wrapper-->
+	<div class="modal fade" id="formularioProducto" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 style="color: #050505" class="modal-title"
+						id="exampleModalLabel">Nuevo Producto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:Action="@{/producto/form}" th:object="${producto}"
+					style="background-color: black;" method="post"
+					enctype="multipart/form-data">
+					<input type="hidden" th:field="*{id}" />
+
+					<div style="color: #050505" class="modal-body">
+						<div class="row mb-3">
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Selecciones una categoria</label> <select
+									class="form-select" th:field="*{categoria.id}">
+									<option value=" ">Seleccione una opción</option>
+									<option th:each="item : ${listaCategorias}"
+										th:value="${item.id}" th:text="${item.nombre}"></option>
+								</select>
+							</div>
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese nombre</label> <input
+									type="text" class="form-control" th:field="*{nombre}" />
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese descripción</label> <input
+									type="text" class="form-control" th:field="*{descripcion}" />
+							</div>
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese marca</label> <input
+									type="text" class="form-control" th:field="*{marca}" />
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese precio</label> <input
+									type="text" class="form-control" th:field="*{precio}" />
+							</div>
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese cantidad</label> <input
+									type="text" class="form-control" th:field="*{cantidad}" />
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese talla</label> <input
+									type="text" class="form-control" th:field="*{talla}" />
+							</div>
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese color</label> <input
+									type="text" class="form-control" th:field="*{color}" />
+							</div>
+
+						</div>
+
+						<div class="col-12 mt-2">
+							<label style="color: white">Imagen:</label> <input
+								type="file" class="form-control" name="file" id="imagen" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Guardar
+							Categoria</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript-->
+	<div th:replace="layouts/fragmentos :: librerias"></div>
+	<script type="text/javascript" th:src="@{/js/producto.js}"></script>
+	<script th:src="@{/js/simple-datatables.js}"></script>
+	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validacion.js}"></script>
+
+</body>
+</html>

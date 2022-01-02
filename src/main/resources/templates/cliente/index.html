@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/fragmentos :: cabecera">
+
+
+</head>
+
+<body class="bg-theme bg-theme1">
+
+	<!-- Start wrapper-->
+	<div id="wrapper">
+
+		<!--Inicio de barra lateral-->
+		<div th:replace="layouts/fragmentos :: menu"></div>
+		<!--final de barra lateral-->
+
+		<!--Start topbar header-->
+		<div th:replace="layouts/fragmentos :: barraSuperior"></div>
+
+		<!--End topbar header-->
+
+		<div class="clearfix"></div>
+
+		<div class="content-wrapper">
+			<div class="container-fluid">
+
+				<!--start overlay-->
+				<div class="overlay toggle-menu"></div>
+				<div class="card">
+					<div class="card-header">Lista de clientes</div>
+					<div class="card-body table-responsive">
+						<table class="table table-bordered table-hover " id="datatablesSimple">
+							<thead class=thead-dark>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Primer Apellido</th>
+									<th>Segundo Apellido</th>
+									<th>Genero</th>
+									<th>Numero de Celular</th>
+									<th>Fecha Registro</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item: ${listaClientes}">
+									<td th:text="${item.id}">1</td>
+									<td th:text="${item.nombres}"></td>
+									<td th:text="${item.priapellido}"></td>
+									<td th:text="${item.seapellido}"></td>
+									<td th:text="${item.genero}"></td>
+									<td th:text="${item.celular}"></td>
+									<td th:text="${item.fechreg}"></td>
+									<td class="text-center"><a href="#"
+										class="btn btn-warning editarCliente" th:id="${item.id}"
+										th:param1="${item.nombres}" th:param2="${item.priapellido}"
+										th:param3="${item.seapellido}" th:param4="${item.genero}" th:param5="${item.celular}">
+											<i class="fas fa-edit"></i> Editar
+									</a></td>
+									<td class="text-center"><a
+										th:href="@{/cliente/eliminar/}+${item.id}"
+										onclick="return confirm('Desea Eliminar?')"
+										class="btn btn-danger"> <i class="fas fa-trash-alt"></i>
+											Eliminar
+									</a></td>
+
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-12">
+
+						<button type="button" class="btn btn-info" id="btnNuev"
+							data-toggle="modal" data-target="#formularioCliente">
+							<i class="fas fa-plus-square"></i> Nuevo Cliente
+						</button>
+
+					</div>
+
+				</div>
+				<!--end overlay-->
+
+			</div>
+
+			<!-- End container-fluid-->
+
+		</div>
+		<!--End content-wrapper-->
+	</div>
+	<!--End wrapper-->
+	<!-- Modal -->
+	<div class="modal fade" id="formularioCliente" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 style="color: #050505" class="modal-title"
+						id="exampleModalLabel">Nuevo Cliente</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:Action="@{/cliente/form}" th:object="${cliente}" style="background-color: black"
+					method="post">
+					<input type="hidden" th:field="*{id}" />
+
+					<div style="color: #050505" class="modal-body">
+						<div class="row mb-3">
+							<div class="col-md-6 mt-2" >
+                                <label style="color: white">Ingrese nombre</label> <input
+									type="text" class="form-control" th:field="*{nombres}" />
+                            </div>
+                            <div class="col-md-6 mt-2" >
+                                <label style="color: white">Ingrese primer apellido</label> <input
+									type="text" class="form-control" th:field="*{priapellido}" />
+                            </div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6 mt-2" >
+                                <label style="color: white">Ingrese segundo apellido</label> <input
+									type="text" class="form-control" th:field="*{seapellido}" />
+                            </div>
+                            <div class="col-md-6 mt-2" >
+                                <label style="color: white">Ingrese género</label> <input
+									type="text" class="form-control" th:field="*{genero}" />
+                            </div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-12 ">
+                                <label style="color: white" >Ingrese numero celular</label> <input
+									type="text" class="form-control" th:field="*{celular}" />
+                            </div>
+						</div>
+
+					</div>	
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+							Cancelar
+						</button>
+						<button type="submit" class="btn btn-primary">
+							Guardar Categoria
+						</button>
+					</div>				
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<div th:replace="layouts/fragmentos :: librerias"></div>
+	<script type="text/javascript" th:src="@{/js/cliente.js}"></script>
+	<script th:src="@{/js/simple-datatables.js}"></script>
+	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validacion.js}"></script>
+
+</body>
+</html>

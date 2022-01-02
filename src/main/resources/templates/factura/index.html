@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/fragmentos :: cabecera">
+
+
+</head>
+
+<body class="bg-theme bg-theme1">
+
+	<!-- Start wrapper-->
+	<div id="wrapper">
+
+		<!--Inicio de barra lateral-->
+		<div th:replace="layouts/fragmentos :: menu"></div>
+		<!--final de barra lateral-->
+
+		<!--Start topbar header-->
+		<div th:replace="layouts/fragmentos :: barraSuperior"></div>
+
+		<!--End topbar header-->
+
+		<div class="clearfix"></div>
+
+		<div class="content-wrapper">
+			<div class="container-fluid">
+
+				<!--start overlay-->
+				<div class="overlay toggle-menu"></div>
+				<div class="card">
+					<div class="card-header">Lista de Facturas</div>
+					<div class="card-body table-responsive">
+						<table class="table table-bordered table-hover " id="datatablesSimple" >
+							<thead class=thead-dark>
+								<tr>
+									<th>ID</th>
+									<th>Cliente</th>
+									<th>Descripción</th>
+									<th>Observaciones</th>
+									<th>Fecha Registro</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item: ${listaFacturas}">
+									<td th:text="${item.id}">1</td>
+									<td th:text="${item.cliente.nombres}"></td>
+									<td th:text="${item.descripcion}"></td>
+									<td th:text="${item.observaciones}"></td>
+									<td th:text="${item.fechreg}"></td>
+									
+									<td class="text-center"><a href="#"
+										class="btn btn-warning editarFactura" th:id="${item.id}"
+										th:param1="${item.cliente.id}" th:param2="${item.descripcion}" th:param3="${item.observaciones}"  
+										>
+											<i class="fas fa-edit"></i> Editar
+									</a></td>
+									<td class="text-center"><a
+										th:href="@{/factura/eliminar/}+${item.id}"
+										onclick="return confirm('Desea Eliminar?')"
+										class="btn btn-danger"> <i class="fas fa-trash-alt"></i>
+											Eliminar
+									</a></td>
+
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+               <br>
+
+				<div class="row">
+					<div class="col-12">
+
+						<button type="button" class="btn btn-info" id="btnNuevo"
+							data-toggle="modal" data-target="#formularioFactura">
+							<i class="fas fa-plus-square"></i> Nueva Factura
+						</button>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- End container-fluid-->
+
+		</div>
+		<!--End content-wrapper-->
+		<!--Start Back To Top Button-->
+		<a href="javaScript:void();" class="back-to-top"><i
+			class="fa fa-angle-double-up"></i> </a>
+		<!--End Back To Top Button-->
+	</div>
+	<!--End wrapper-->
+    <div class="modal fade" id="formularioFactura" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 style="color: #050505" class="modal-title"
+						id="exampleModalLabel">Nueva Factura</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:Action="@{/factura/form}" th:object="${factura}" style="background-color: black"
+					method="post">
+					<input type="hidden" th:field="*{id}" />
+
+					<div style="color: #050505" class="modal-body">
+						<div class="row mb-3">
+						   <div class="col-md-6 mt-2">
+								<label style="color: white">Seleccione un cliente</label> 
+								<select class="form-select"  th:field = "*{cliente.id}">
+								<option value=" " >Seleccione una opción </option>
+								<option th:each ="item : ${listaClientes}" th:value="${item.id}" th:text="${item.nombres}">
+								</option>
+								</select>
+							</div>
+							<div class="col-md-6 mt-2">
+								<label style="color: white">Ingrese descripción</label> <input
+									type="text" class="form-control" th:field="*{descripcion}" />
+							</div>
+						</div>
+						   <div class="row mb-3">
+							<div class="col-12" >
+                                <label style="color: white">Ingrese observación</label> <input
+									type="text" class="form-control" th:field="*{observaciones}" />
+                            </div>
+                            
+						</div>                        
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+							Cancelar
+						</button>
+						<button type="submit" class="btn btn-primary">
+							Guardar Categoria
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript-->
+	<div th:replace="layouts/fragmentos :: librerias"></div>
+	<script type="text/javascript" th:src="@{/js/factura.js}"></script>
+	<script th:src="@{/js/simple-datatables.js}"></script>
+	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validacion.js}"></script>
+</body>
+</html>

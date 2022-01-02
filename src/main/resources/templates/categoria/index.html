@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layouts/fragmentos :: cabecera">
+
+
+</head>
+
+<body class="bg-theme bg-theme1">
+
+	<!-- Start wrapper-->
+	<div id="wrapper">
+
+		<!--Inicio de barra lateral-->
+		<div th:replace="layouts/fragmentos :: menu"></div>
+		<!--final de barra lateral-->
+
+		<!--Start topbar header-->
+		<div th:replace="layouts/fragmentos :: barraSuperior"></div>
+
+		<!--End topbar header-->
+
+		<div class="clearfix"></div>
+
+		<div class="content-wrapper">
+			<div class="container-fluid">
+
+				<!--start overlay-->
+				<div class="overlay toggle-menu"></div>
+				<div class="card">
+					<div class="card-header">Lista de categorias</div>
+					<div class="card-body table-responsive">
+						<table class="table table-bordered table-hover" id="datatablesSimple" >
+							<thead class=thead-dark>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Descripcion</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item: ${listaCategorias}">
+									<td th:text="${item.id}">1</td>
+									<td th:text="${item.nombre}"></td>
+									<td th:text="${item.descripcion}"></td>
+									<td class="text-center"><a href="#"
+										class="btn btn-warning editarCategoria" th:id="${item.id}"
+										th:param1="${item.nombre}" th:param2="${item.descripcion}">
+											<i class="fas fa-edit"></i> Editar
+									</a></td>
+									<td class="text-center"><a
+										th:href="@{/categoria/eliminar/}+${item.id}"
+										onclick="return confirm('Desea Eliminar?')"
+										class="btn btn-danger"> <i class="fas fa-trash-alt"></i>
+											Eliminar
+									</a></td>
+
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-12">
+
+						<button type="button" class="btn btn-info" id="btnNueva"
+							data-toggle="modal" data-target="#formularioCategoria">
+							<i class="fas fa-plus-square"></i> Nueva categoria
+						</button>
+
+					</div>
+
+				</div>
+				
+				<!--end overlay-->
+
+			</div>
+			
+			<!-- End container-fluid-->
+
+		</div>
+		<!--End content-wrapper-->
+		
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="formularioCategoria" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 style="color: #050505" class="modal-title"
+						id="exampleModalLabel">Nueva Categoria</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:Action="@{/categoria/form}" th:object="${categoria}" style="background-color: black"
+					method="post">
+					<input type="hidden" th:field="*{id}" />
+
+					<div style="color: #050505" class="modal-body">
+						<div class="row">
+							<div class="col-12">
+								<label style="color: white">Ingrese nombre</label> <input
+									type="text" class="form-control" th:field="*{nombre}" />
+							</div>
+							<div class="col-12">
+								<label style="color: white">Ingrese descripción</label> <input
+									type="text" class="form-control" th:field="*{descripcion}" />
+							</div>
+
+						</div>				
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">
+							Cancelar
+						</button>
+						<button type="submit" class="btn btn-primary">
+							Guardar Categoria
+						</button>
+					</div>		
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--End wrapper-->
+	<!-- Bootstrap core JavaScript-->
+	<div th:replace="layouts/fragmentos :: librerias"></div>
+
+	<script type="text/javascript" th:src="@{/js/categoria.js}"></script>
+	<script th:src="@{/js/simple-datatables.js}"></script>
+	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validacion.js}"></script>
+
+</body>
+</html>

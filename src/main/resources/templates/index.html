@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Empresa de Zapatillas</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="@{/images/icons/CasaInicio.ico}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/all.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/font-awesome.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/material-design-iconic-font.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100"
+			style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert" th:if="${error != null}">
+				<strong>Error!</strong> <span th:text="${error}"></span>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				<form class="login100-form validate-form" th:action="@{/}"
+					method="post">
+					<span class="login100-form-title p-b-30"> Login </span>
+					<div class="login100-form-avatar">
+						<img th:src="@{/images/avatar-01.jpg}" alt="AVATAR" />
+					</div>
+					<br>
+
+					<div class="wrap-input100 validate-input m-b-23"
+						data-validate="Nombre de usuario inválido">
+						<span class="label-input100">Nombre de usuario</span> <input
+							type="text" placeholder="Ingresa tu usuario" name="username"
+							id="username" class="form-control input100"> <span
+							class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input"
+						data-validate="Contraseña inválida">
+						<span class="label-input100">Contraseña</span> <input
+							type="password" placeholder="Ingresa tu contraseña"
+							name="password" id="password" class="form-control input100">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+
+
+
+					<div class="text-right p-t-8 p-b-31">
+						<a href="#"> Olvidaste tu contraseña? </a>
+					</div>
+
+
+					<button type="submit" class="button btn3 mx-auto">
+						<span class="button__line button__line--top"></span> <span
+							class="button__line button__line--right"></span> <span
+							class="button__line button__line--bottom"></span> <span
+							class="button__line button__line--left"></span> <b>Iniciar
+							sesión <i class="fas fa-sign-in-alt"></i>
+						</b>
+					</button>
+
+
+					<div class="flex-col-c p-t-30">
+						<a class="txt2"> Registrate </a>
+					</div>
+
+					<div class="txt1 text-center p-t-20 p-b-10">
+						<span> Síguenos en </span>
+					</div>
+
+					<div class="flex-c-m">
+						<a class="login100-social-item bg1" style="margin: 15px"> <i
+							class="fa fa-facebook"></i>
+						</a> <a class="login100-social-item bg2" style="margin: 15px"> <i
+							class="fa fa-twitter"></i>
+						</a> <a class="login100-social-item bg3" style="margin: 15px"> <i
+							class="fa fa-google"></i>
+						</a>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+
+	<!--===============================================================================================-->
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
